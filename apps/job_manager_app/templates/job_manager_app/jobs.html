@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Handy Helper Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div style="display: inline-block">
+        <h3>Hello {{reg_user.first_name}}!</h3>
+    </div>
+    <div style="display: inline-block">
+        <a href="/">Logout</a>
+    </div>
+    <div>
+        <form action="/jobs/new" method="POST">
+            {% csrf_token %}
+            <button style="display: inline-block" type="submit">New Job!</button>
+        </form>
+    </div>
+    <table class="table table-striped">
+        <p>Everyone's jobs:</p>
+        <thead>
+            <tr>
+                <th scope="col">Job</th>
+                <th scope="col">Location</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in jobs %}
+            <tr>
+                {% if job.isadded == False %}
+                <td>{{ job.job }}</td>
+                <td>{{ job.location }}</td>
+                <td><a href="/jobs/{{job.id}}">View</a>
+                    {% if job.user.id == request.session.new_user_id %}
+                    | <a href="/job/{{job.id}}/delete">Remove</a> | <a href="/jobs/edit/{{job.id}}">Edit</a>
+                    {% endif %}
+                    | <a href="/add/{{job.id}}">Add!</a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table class="table table-striped">
+        <p>{{reg_user.first_name}}'s jobs:</p>
+        <thead>
+            <tr>
+                <th scope="col">Job</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in jobs %}
+            <tr>
+                {% if job.isadded == True %}
+                <td>{{job.job}}</td>
+                <td><a href="/jobs/{{job.id}}">View</a> | <a href="/job/{{job.id}}/delete">Done</a> | <a href="/giveup/{{job.id}}">Give up</a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

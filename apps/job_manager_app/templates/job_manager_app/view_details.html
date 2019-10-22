@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View job</title>
+</head>
+<body>
+    <h3>Hello {{reg_user.first_name}}! These are the job details!</h3>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+    <h5>{{selected_job.job}}</h5>
+    <p>{{selected_job.description}}</p>
+    <p>Location: {{selected_job.location}}</p>
+    <p>Posted on: {{selected_job.created_at}}</p>  
+    {% if selected_job.isadded == False %}
+    <a href="/add/{{selected_job.id}}">Add to my jobs</a>
+    {% endif %}
+    {% if selected_job.isadded == True %}
+    <a href="/giveup/{{selected_job.id}}">Give up</a>
+    {% endif %}
+</body>
+</html>

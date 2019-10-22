@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Wishes</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/wish_style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <h3>Hello {{reg_user.first_name}}! Let's edit your wish!</h3>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+
+            <!-- Job Edit Form -->
+
+
+            <form action="/job/update/{{edited_job.id}}" method="POST">
+                {% csrf_token %}
+                Title: <div><input type="text" id="job" class="fadeIn second" name="job" value="{{edited_job.job}}">
+                </div>
+                Description: <input type="text" id="description" class="fadeIn third" name="description"
+                    value="{{edited_job.description}}">
+                Location: <input type="text" id="location" class="fadeIn third" name="location"
+                    value="{{edited_job.location}}">
+                <input type="submit" class="fadeIn fourth" value="Edit">
+            </form>
+            <form action="/dashboard">
+                <input type="submit" class="fadeIn fourth" value="Cancel">
+            </form>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li style="list-style: none" {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>

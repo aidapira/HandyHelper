@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Job</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/wish_style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <h3>Hello {{reg_user.first_name}}! Create a job!</h3>
+    <a href="/logout">Logout</a>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+
+
+            <!-- Wish Form -->
+            <form action="/jobprocess" method="POST">
+                {% csrf_token %}
+                Title: <div><input type="text" id="job" class="fadeIn second" name="job" placeholder="Dream Job!">
+                </div>
+                Description: <input type="text" id="description" class="fadeIn third" name="description">
+                Location: <input type="text" id="location" class="fadeIn third" name="location">
+                Category: <div>
+                    <p><input type="radio" name="choice" value="garden">Garden
+                        <input type="radio" name="choice" value="petcare">Pet Care
+                        <input type="radio" name="choice" value="electrical">Electrical
+                    </p>
+                </div>
+                Other: <div><input name="choice" type="text"></div>
+                    <input type="submit" class="fadeIn fourth" value="Submit">
+            </form>
+            <form action="/dashboard">
+                <input type="submit" class="fadeIn fourth" value="Cancel">
+            </form>
+
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li style="list-style: none" {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+        </div>
+    </div>
+</body>
+
+</html>
